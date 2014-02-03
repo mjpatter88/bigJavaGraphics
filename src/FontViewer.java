@@ -8,8 +8,19 @@ public class FontViewer extends JFrame
 	public FontViewer()
 	{
         sampleField = new JLabel("Michael Patterson");
+        sampleField.setHorizontalAlignment(JLabel.CENTER);
         add(sampleField, BorderLayout.CENTER);
+
+        class ChoiceListener implements ActionListener
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                setSampleFont();
+            }
+        }
         
+        listener = new ChoiceListener();
+
         createControlPanel();
         setSampleFont();
 	} 
@@ -37,6 +48,7 @@ public class FontViewer extends JFrame
         fontNameCombo.addItem("SansSerif");
         fontNameCombo.addItem("Monospaced");
         fontNameCombo.setEditable(true);
+        fontNameCombo.addActionListener(listener);
         
         JPanel panel = new JPanel();
         panel.add(fontNameCombo);
@@ -46,8 +58,10 @@ public class FontViewer extends JFrame
     private JPanel createCheckBoxes()
     {
         italicCheckBox = new JCheckBox("Italic");
+        italicCheckBox.addActionListener(listener);
 
         boldCheckBox = new JCheckBox("Bold");
+        boldCheckBox.addActionListener(listener);
 
         JPanel panel = new JPanel();
         panel.add(italicCheckBox);
@@ -59,10 +73,11 @@ public class FontViewer extends JFrame
     private JPanel createRadioButtons()
     {
         smallButton = new JRadioButton("Small");
-
+        smallButton.addActionListener(listener);
         mediumButton = new JRadioButton("Medium");
-
+        mediumButton.addActionListener(listener);
         largeButton = new JRadioButton("Large");
+        largeButton.addActionListener(listener);
         largeButton.setSelected(true);
 
         ButtonGroup group = new ButtonGroup();
@@ -115,7 +130,7 @@ public class FontViewer extends JFrame
 	{
         JFrame frame = new FontViewer();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(360,300);
+        frame.setSize(550,300);
         frame.setTitle("Font Viewer");
         frame.setVisible(true);
 	}
